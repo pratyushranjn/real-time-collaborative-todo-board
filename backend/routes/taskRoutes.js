@@ -1,6 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const protect = require('../middleware/protect');
-const { createTask } = require('../controllers/taskController');
+const asyncWrapper = require("../utils/asyncWrapper.js");
 
-router.post('/tasks', protect, createTask);
+const {
+    createTask,
+    getAllTasks,
+    updateTask,
+    deleteTask
+} = require('../controllers/taskController')
+
+const auth = require('../middleware/authMiddleware');
+
+router.use(auth); // protect all routes below
+
+router.post('/createTask', asyncWrapper(createTask));
+
+router.get('/', asyncWrapper(getAllTasks));
+
+router.put('/:id', asyncWrapper(updateTask));
+
+router.delete('/:id', asyncWrapper(deleteTask));
+
+module.exports = router

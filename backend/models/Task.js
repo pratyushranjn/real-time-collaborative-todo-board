@@ -4,7 +4,14 @@ const taskSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    validate: {
+      validator: function(value) {
+        const forbidden = ['todo', 'in progress', 'done'];
+        return !forbidden.includes(value.toLowerCase());
+      },
+      message: 'Task title cannot match column names: Todo, In Progress, or Done'
+    }
   },
   description: {
     type: String,
@@ -26,9 +33,16 @@ const taskSchema = new mongoose.Schema({
   },
   boardId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Board', // Optional, to implement multiple boards
+    ref: 'Board',
     required: true
+  },
+  lastModified: {
+    type: Date,
+    default: Date.now
   }
 }, { timestamps: true });
+
+// title unique per board
+taskSchema.index({ boardId: 1, title: 1 }, { unique: true });
 
 module.exports = mongoose.model('Task', taskSchema);
