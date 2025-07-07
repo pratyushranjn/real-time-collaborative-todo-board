@@ -6,7 +6,8 @@ const {
     createTask,
     getAllTasks,
     updateTask,
-    deleteTask
+    deleteTask,
+    smartAssignTask
 } = require('../controllers/taskController')
 
 const auth = require('../middleware/authMiddleware');
@@ -20,5 +21,9 @@ router.get('/', asyncWrapper(getAllTasks));
 router.put('/:id', asyncWrapper(updateTask));
 
 router.delete('/:id', asyncWrapper(deleteTask));
+
+// SMart Assign
+router.post('/smart-assign/:id', asyncWrapper(smartAssignTask));
+
 
 module.exports = router

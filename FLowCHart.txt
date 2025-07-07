@@ -1,0 +1,24 @@
+User Register/Login
+     ↓
+Backend issues JWT token stored in cookie
+     ↓
+User accesses protected API routes
+     ↓
+Authenticate middleware:
+    - verifies token
+    - attaches user info
+     ↓
+Task CRUD / Smart Assign APIs:
+    - validate input
+    - update DB
+    - log actions
+     ↓
+Socket.IO real-time sync broadcasts changes to connected clients
+     ↓
+Users edit tasks → conflict detection on server → notify clients
+     ↓
+Frontend UI shows conflict resolution if needed
+     ↓
+Activity log updates live with recent actions
+     ↓
+User logs out → token removed → authentication fails on next request

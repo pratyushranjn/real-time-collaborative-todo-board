@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const connectDB = require("./config/db");
 const authRoute = require('./routes/authRoutes')
 const taskRoute = require('./routes/taskRoutes')
+const logRoute = require('./routes/logRoutes')
 
 const http = require('http');
 const Socket = require('./sockets/socket');
@@ -27,6 +28,7 @@ app.use(cookieParser());
 // Routes
 app.use('/api/user', authRoute);
 app.use('/api/tasks', taskRoute)
+app.use('/api/log', logRoute)
 
 
 // Setup Socket.IO

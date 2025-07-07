@@ -1,40 +1,79 @@
 const Task = require("../models/Task")
+const smartAssign = require('../utils/smartAssign');
+const { logAction } = require('../controllers/logController');
 
-const createTask = async (req, res) => {
-  const { title, description, priority, assignedTo, boardId } = req.body;
+// Smart Assign Controller
+const smartAssignTask = async (req, res) => {
+    const taskId = req.params.id;
+    const task = await Task.findById(taskId);
+    if (!task) {
+        res.status(404);
+        throw new Error('Task not found');
+    }
 
-  if (!boardId) {
-    res.status(400);
-    throw new Error('boardId is required');
-  }
+    const userId = await smartAssign(); // Core logic
 
-  try {
-    const task = await Task.create({
-      title,
-      description,
-      priority,
-      assignedTo,
-      boardId
+    if (!userId) {
+        res.status(400);
+        throw new Error('No eligible users found');
+    }
+
+    task.assignedTo = userId;
+    task.lastModified = new Date();
+    await task.save();
+
+    await logAction({
+        action: "Smart assigned task",
+        user: req.user.id,
+        task: task._id
     });
 
-    res.status(201).json(task);
+    res.json(task);
+};
 
-  } catch (err) {
-    // Handle duplicate key error from MongoDB
-    if (err.code === 11000) {
-      res.status(400);
-      throw new Error('Task title must be unique within this board');
+
+// Create Task
+const createTask = async (req, res) => {
+    const { title, description, priority, assignedTo, boardId } = req.body;
+
+    if (!boardId) {
+        res.status(400);
+        throw new Error('boardId is required');
     }
 
-    // Handle Mongoose validation error for title matching column names
-    if (err.errors?.title?.message) {
-      res.status(400);
-      throw new Error(err.errors.title.message);
-    }
+    try {
+        const task = await Task.create({
+            title,
+            description,
+            priority,
+            assignedTo,
+            boardId
+        });
 
-    // Other unexpected errors
-    throw err;
-  }
+        await logAction({
+            action: "Created task",
+            user: req.user.id,
+            task: task._id
+        });
+
+        res.status(201).json(task);
+
+    } catch (err) {
+        // Handle duplicate key error from MongoDB
+        if (err.code === 11000) {
+            res.status(400);
+            throw new Error('Task title must be unique within this board');
+        }
+
+        // Handle Mongoose validation error for title matching column names
+        if (err.errors?.title?.message) {
+            res.status(400);
+            throw new Error(err.errors.title.message);
+        }
+
+        // Other unexpected errors
+        throw err;
+    }
 };
 
 
@@ -44,23 +83,39 @@ const getAllTasks = async (req, res) => {
     res.json(tasks);
 }
 
+
 const updateTask = async (req, res) => {
-    const updatedData = {
-        ...req.body,
-        lastModified: new Date()
-    };
 
-    const updatedTask = await Task.findByIdAndUpdate(req.params.id, updatedData, {
-        new: true
-    })
+    const clientTimestamp = new Date(req.body.lastModified);
+    const task = await Task.findById(req.params.id);
 
-    if (!updatedTask) {
+    if (!task) {
         res.status(404);
         throw new Error('Task not found');
     }
 
-    res.json(updateTask)
+    // Conflict detection logic
+    if (clientTimestamp < task.lastModified) {
+        return res.status(409).json({
+            message: 'Conflict detected',
+            serverVersion: task,
+            clientVersion: req.body
+        })
+    }
+
+    // If there's no conflict
+    task.set({ ...req.body, lastModified: new Date() });
+    const updatedTask = await task.save();
+
+    await logAction({
+        action: "Updated task",
+        user: req.user.id,
+        task: updatedTask._id
+    });
+
+    res.json(updatedTask)
 }
+
 
 const deleteTask = async (req, res) => {
     const deleted = await Task.findByIdAndDelete(req.params.id);
@@ -69,9 +124,16 @@ const deleteTask = async (req, res) => {
         throw new Error('Task not found');
     }
 
+    await logAction({
+        action: "Deleted task",
+        user: req.user.id,
+        task: deleted._id
+    });
+
     res.json({ message: 'Task deleted successfully' });
 }
 
+
 module.exports = {
-    createTask, getAllTasks, updateTask, deleteTask
+    createTask, getAllTasks, updateTask, deleteTask, smartAssignTask
 }

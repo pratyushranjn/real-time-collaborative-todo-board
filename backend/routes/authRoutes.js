@@ -19,8 +19,10 @@ router.post("/logout", logout);
 
 router.get('/me', authenticate, getUserProfile);
 
-router.get("/protected-route", authenticate, (req, res) => {
-    res.json(`Welcome user ${req.user.id}`);
+
+router.get('/protected', authenticate, (req, res) => {
+  res.json({ message: "You made it!", user: req.user });
 });
+
 
 module.exports = router
