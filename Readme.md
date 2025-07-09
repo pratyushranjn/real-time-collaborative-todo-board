@@ -95,7 +95,7 @@ cd real-time-collaborative-todo-board
 ### 🧼 Dashboard — Clean View
 The dashboard displays a clean and minimal view in kanbun column.
 
-![Empty Dashboard](./frontend/public/dashboard.png)
+![Empty Dashboard](frontend/public/dashboard.png)
 
 ---
 
@@ -105,7 +105,7 @@ Users can easily create new tasks using a modal form. Newly created tasks appear
 - Smart-assigned user initials
 - Edit and delete options
 
-![Task Created](./frontend/public/createTask.png)
+![Task Created](frontend/public/createTask.png)
 
 ---
 
@@ -114,4 +114,4 @@ Tasks can be **dragged and dropped** across the three Kanban columns:
 - Todo → In Progress → Done  
 with real-time synchronization and persistent priority indicators.
 
-![Priority Based Movement](./frontend/public/prority_based.png)
+![Priority Based Movement](frontend/public/prority_based.png)
