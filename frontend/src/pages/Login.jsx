@@ -4,11 +4,12 @@ import "../styles/auth.css";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, authLoading } = useAuth();
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [showMessage, setShowMessage] = useState(false);
+  const [showMessage, setShowMessage] = useState(false)
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -71,7 +72,16 @@ const Login = () => {
           value={formData.password}
           onChange={handleChange}
         />
-        <button type="submit">Login</button>
+        <button type="submit" disabled={authLoading}>
+          {authLoading ? (
+            <>
+              Logging in...
+
+            </>
+          ) : (
+            "Login"
+          )}
+        </button>
       </form>
 
       <p>

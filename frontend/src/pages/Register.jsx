@@ -4,7 +4,8 @@ import "../styles/auth.css";
 import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
-  const { register } = useAuth();
+  const { register, authLoading } = useAuth();
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
@@ -61,7 +62,16 @@ const Register = () => {
           value={formData.password}
           onChange={handleChange}
         />
-        <button type="submit">Register</button>
+        <button type="submit" disabled={authLoading}>
+          {authLoading ? (
+            <>
+              Registering...
+            </>
+          ) : (
+            "Register"
+          )}
+        </button>
+
       </form>
       <p>
         Already have an account? <Link to="/login">Login</Link>

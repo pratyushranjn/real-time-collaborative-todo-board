@@ -21,6 +21,8 @@ const TaskCard = ({
   const [showOptions, setShowOptions] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [assigning, setAssigning] = useState(false);
+
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -112,6 +114,7 @@ const TaskCard = ({
           <div
             className="footer-item tooltip smart-assign-icon"
             onClick={async () => {
+              setAssigning(true);
               const updated = await onSmartAssign(_id);
               if (updated?.assignedTo?.name) {
                 toast.success(`✨ Assigned to ${updated.assignedTo.name}`, {
@@ -128,12 +131,10 @@ const TaskCard = ({
               } else {
                 toast.error("Smart assign failed or no assignee found");
               }
+              setAssigning(false);
             }}
-
-
-
           >
-            <FaMagic color="#ffff00" />
+            <FaMagic className={assigning ? "magic-assign-anim" : ""} />
             <span className="tooltip-text">✨ Smart Assign</span>
           </div>
           <div className="footer-item assignee-avatar">
@@ -166,11 +167,6 @@ const TaskCard = ({
 };
 
 export default TaskCard;
-
-
-
-
-
 
 
 

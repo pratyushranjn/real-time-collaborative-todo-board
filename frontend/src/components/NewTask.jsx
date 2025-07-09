@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { IoClose } from "react-icons/io5";
 import socket from "../services/socket";
@@ -9,6 +9,9 @@ const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 
 const NewTaskModal = ({ isOpen, onClose, boardId }) => {
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add("modal-open");
@@ -35,6 +38,8 @@ const NewTaskModal = ({ isOpen, onClose, boardId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
     const formData = new FormData(e.target);
     const task = {
       title: formData.get("title"),
@@ -57,8 +62,11 @@ const NewTaskModal = ({ isOpen, onClose, boardId }) => {
       const msg =
         err?.response?.data?.message || "Failed to create task. Please try again.";
       toast.error(msg);
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
 
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
@@ -100,9 +108,14 @@ const NewTaskModal = ({ isOpen, onClose, boardId }) => {
           </select>
 
           <div className="modal-buttons">
-            <button type="submit" className="submit-btn">
-              Add Task
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <span className="loading-spinner"></span> 
+              ) : (
+                "Add Task"
+              )}
             </button>
+
           </div>
         </form>
       </div>

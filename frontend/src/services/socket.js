@@ -1,6 +1,8 @@
 import { io } from "socket.io-client";
 
-const socket = io('http://localhost:5000', {
+const url = 'https://real-time-collabtask.onrender.com'
+
+const socket = io(url, {
     withCredentials: true,
     autoConnect: false,
 });

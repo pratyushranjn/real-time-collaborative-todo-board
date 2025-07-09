@@ -31,3 +31,38 @@
     transform: translateY(0);
   }
 }
+
+
+.magic-glow {
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 4px red);
+  }
+  to {
+    filter: drop-shadow(0 0 10px red);
+  }
+}
+
+
+.magic-assign-anim {
+  color: red !important;
+  animation: rotate-glow 1s linear infinite;
+}
+
+@keyframes rotate-glow {
+  0% {
+    transform: rotate(0deg);
+    filter: drop-shadow(0 0 4px red);
+  }
+  50% {
+    filter: drop-shadow(0 0 10px red);
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: drop-shadow(0 0 4px red);
+  }
+}
+

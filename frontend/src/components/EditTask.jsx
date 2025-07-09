@@ -6,6 +6,9 @@ import "../styles/EditTask.css";
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const EditTaskModal = ({ task, onClose, onUpdate }) => {
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const [formData, setFormData] = useState({
         title: task.title,
         description: task.description,
@@ -20,6 +23,7 @@ const EditTaskModal = ({ task, onClose, onUpdate }) => {
     };
 
     const handleSubmit = async () => {
+        setIsSubmitting(true);
         try {
             const res = await axios.put(
                 `${BASE_URL}/tasks/${task._id}`,
@@ -27,10 +31,8 @@ const EditTaskModal = ({ task, onClose, onUpdate }) => {
                     ...formData,
                     lastModified: task.lastModified,
                 },
-                { withCredentials: true }  
+                { withCredentials: true }
             );
-
-
             onUpdate(res.data);
             toast.success("Task updated");
             onClose();
@@ -44,8 +46,11 @@ const EditTaskModal = ({ task, onClose, onUpdate }) => {
             } else {
                 toast.error("Update failed");
             }
+        } finally {
+            setIsSubmitting(false);
         }
     };
+
 
     return (
         <div className="modal-overlay">
@@ -85,8 +90,8 @@ const EditTaskModal = ({ task, onClose, onUpdate }) => {
                 </select>
 
                 <div className="modal-buttons">
-                    <button className="save-btn" onClick={handleSubmit}>
-                        Save
+                    <button className="save-btn" onClick={handleSubmit} disabled={isSubmitting}>
+                       {isSubmitting ? "⏳ Saving..." : "Save"}
                     </button>
                     <button className="cancel-btn" onClick={onClose}>
                         Cancel

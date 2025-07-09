@@ -163,3 +163,12 @@
     padding: 0.5rem 1rem;
   }
 }
+
+/* Add to NewTask.css and EditTask.css */
+
+.submit-btn[disabled],
+.save-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}

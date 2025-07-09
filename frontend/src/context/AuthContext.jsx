@@ -2,13 +2,14 @@ import { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios'
 import socket from '../services/socket'
 
-
 const AuthContext = createContext();
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setloading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(false); 
+
 
   // Fetch user
   const fetchUser = async () => {
@@ -16,11 +17,17 @@ export const AuthProvider = ({ children }) => {
       const res = await axios.get(`${BASE_URL}/auth/me`, {
         withCredentials: true, // for sending the cookie
       });
+
       setUser(res.data.user)
-      socket.connect();
+      if (!socket.connected) {
+        socket.connect(); // Connect only after user is authenticated
+      }
+
     } catch (err) {
       setUser(null)
-      socket.disconnect()
+      if (socket.connected) {
+        socket.disconnect();
+      }
     } finally {
       setloading(false);
     }
@@ -32,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async ({ email, password }) => {
     if (!email || !password) throw new Error('Email and password are required');
-
+    setAuthLoading(true);
     try {
       await axios.post(
         `${BASE_URL}/auth/login`,
@@ -42,13 +49,17 @@ export const AuthProvider = ({ children }) => {
       await fetchUser(); // refresh context
     } catch (err) {
       throw new Error(err.response?.data?.message || 'Login failed');
+    } finally {
+      setAuthLoading(false);
     }
   };
+
 
   const register = async ({ name, email, password }) => {
     if (!name || !email || !password) throw new Error('All fields are required');
     if (password.length < 5) throw new Error('Password must be at least 5 characters');
 
+    setAuthLoading(true);
     try {
       await axios.post(
         `${BASE_URL}/auth/register`,
@@ -58,8 +69,11 @@ export const AuthProvider = ({ children }) => {
       await fetchUser(); // refresh context
     } catch (err) {
       throw new Error(err.response?.data?.message || 'Registration failed');
+    } finally {
+      setAuthLoading(false);
     }
   };
+
 
   const logout = async () => {
     try {
@@ -74,7 +88,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, setUser, login, register, logout, loading, authLoading }}>
       {children}
     </AuthContext.Provider>
   );
