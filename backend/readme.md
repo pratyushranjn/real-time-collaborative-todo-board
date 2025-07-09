@@ -22,12 +22,14 @@ It powers features like authentication, task management, smart assignment, confl
 
 ---
 
+# MongoDB connection string (replace with your actual URI)
+MONGO_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/your-db-name
 
-## Environment Variable
+# Secret key for JWT token signing
+JWT_SECRET=your_jwt_secret
 
-# MONGO_URL=your_mongo_uri
-# JWT_SECRET=your_secret
-# NODE_ENV=development
+# Set to "production" in deployed environment
+NODE_ENV=development
 
 
 ## 🚀 Setup & Run Locally

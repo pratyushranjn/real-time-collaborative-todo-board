@@ -1,4 +1,5 @@
-# 🚀 Real-Time Collaborative To-Do Board
+# 🚀 Real-Time Collaborative To-Do Board  
+**Build. Assign. Collaborate. Instantly.**
 
 An intuitive, **Kanban-style task management** board with real-time collaboration, intelligent task assignment, and conflict resolution — built for the **Webalar Full Stack Internship Assignment**.
 
@@ -87,7 +88,7 @@ The dashboard displays a clean and minimal view in Kanban columns.
 
 ---
 
-### ✍️ Created Task — with Priority 
+### ✍️ Create Task — with Priority 
 Users can easily create new tasks using a modal form. Newly created tasks appear instantly for all users and include:
 - Priority badge (`High`, `Medium`, `Low`)
 - Smart-assigned user initials
@@ -104,6 +105,15 @@ With real-time synchronization and persistent priority indicators.
 
 ![Priority Based Task View](./frontend/public/prority_based.png)
 
+
+# Backend Environment Variables
+MONGO_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>
+JWT_SECRET=your_jwt_secret
+NODE_ENV=development
+
+# Frontend Environment Variables (Vite)
+VITE_BACKEND_URL=https://your-backend-domain.com/api
+VITE_SOCKET_URL=https://your-backend-domain.com
 
 
 ## ⚙️ Setup Instructions
