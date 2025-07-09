@@ -89,29 +89,28 @@ cd real-time-collaborative-todo-board
 
 
 
-
 ## 📷 Screenshots
 
 ### 🧼 Dashboard — Clean View
-The dashboard displays a clean and minimal view in kanbun column.
+The dashboard displays a clean and minimal view in Kanban columns.
 
-![Empty Dashboard](frontend/public/dashboard.png)
+![Dashboard](public/dashboard.png)
 
 ---
 
-### ✍️ Task Created — with Priority & Assignee
+### ✍️ Created Task — with Priority 
 Users can easily create new tasks using a modal form. Newly created tasks appear instantly for all users and include:
 - Priority badge (`High`, `Medium`, `Low`)
 - Smart-assigned user initials
 - Edit and delete options
 
-![Task Created](frontend/public/createTask.png)
+![Created Task](public/createTask.png)
 
 ---
 
 ### 🔄 Priority-Based Task Movement
 Tasks can be **dragged and dropped** across the three Kanban columns:
 - Todo → In Progress → Done  
-with real-time synchronization and persistent priority indicators.
+With real-time synchronization and persistent priority indicators.
 
-![Priority Based Movement](frontend/public/prority_based.png)
+![Priority Based Task View](public/prority_based.png)
