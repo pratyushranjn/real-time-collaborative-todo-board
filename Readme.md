@@ -106,12 +106,15 @@ With real-time synchronization and persistent priority indicators.
 ![Priority Based Task View](./frontend/public/prority_based.png)
 
 
-# Backend Environment Variables
+#### 📁 Environment Variables
+
+```env
+# Backend
 MONGO_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>
 JWT_SECRET=your_jwt_secret
 NODE_ENV=development
 
-# Frontend Environment Variables (Vite)
+# Frontend (Vite)
 VITE_BACKEND_URL=https://your-backend-domain.com/api
 VITE_SOCKET_URL=https://your-backend-domain.com
 

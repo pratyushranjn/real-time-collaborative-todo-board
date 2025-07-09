@@ -33,19 +33,3 @@ This is the **React frontend** for the Webalar Full Stack Development assignment
 - 🎨 **Custom UI**: Smooth, responsive, and interactive layout
 
 ---
-
-
-# 🌐 Backend API base URL
-VITE_BACKEND_URL=https://real-time-collabtask.onrender.com/api
-
-# 🔌 Socket.IO server URL
-VITE_SOCKET_URL=https://real-time-collabtask.onrender.com
-
-
-# Dashboard Layout
-+------------------------------------------------------+
-| Navbar                                     |
-+------------------------------------------------------+
-|  Kanban Board (flex: 1)     |  Activity Panel (290px)|
-|                             |                        |
-+------------------------------------------------------+
