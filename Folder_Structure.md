@@ -1,5 +1,6 @@
-# 📦 Project Folder Structure
+## 📁 Folder Structure
 
+```plaintext
 real-time-collaborative-todo-board/
 │
 ├── backend/                      # Express server and WebSocket backend
@@ -14,10 +15,10 @@ real-time-collaborative-todo-board/
 └── frontend/                     # React SPA with drag-drop and socket integration
     ├── public/                   # Static files and HTML entry point
     └── src/                      # React source code
-        ├── assets/              # Icons, illustrations, and static assets
-        ├── components/          # UI components (TaskCard, Modals, Board, etc.)
-        ├── context/             # Global state via React Context (auth, board)
-        ├── hooks/               # Custom React hooks (e.g., useSmartAssign)
-        ├── pages/               # Page-level components (Dashboard, Auth)
-        ├── services/            # API layer and socket client
-        └── styles/              # CSS styling (task cards, modals, board)
+        ├── assets/               # Icons, illustrations, and static assets
+        ├── components/           # UI components (TaskCard, Modals, Board, etc.)
+        ├── context/              # Global state via React Context (auth, board)
+        ├── hooks/                # Custom React hooks (e.g., useSmartAssign)
+        ├── pages/                # Page-level components (Dashboard, Auth)
+        ├── services/             # API layer and socket client
+        └── styles/               # CSS styling (task cards, modals, board)

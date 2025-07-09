@@ -10,15 +10,17 @@ An intuitive, **Kanban-style task management** board with real-time collaboratio
 
 ## 🧩 Project Overview
 
-This is a full-stack MERN application that enables **multiple users to collaborate on tasks** in real-time using a Kanban interface — inspired by Trello.  
+CollabTask is a real-time collaborative Kanban board, inspired by Trello, where multiple users can manage and track tasks together. It includes drag-and-drop columns (Todo, In Progress, Done), smart task assignment, conflict resolution, and a live activity log — all built using the MERN stack and Socket.IO.  
 It includes:
 
 - 🔐 **Secure login** via JWT + HTTP-only cookies  
 - 🔄 **Live task sync** via Socket.IO (WebSockets)  
-- ✨ **Smart Assign** to auto-distribute tasks  
-- ⚠️ **Conflict Detection** during concurrent edits  
+- ✨ **Smart Assign** to auto-distribute tasks based on workload
+- ⚠️ **Conflict Detection** for handling concurrent edits (via lastModified)  
 - 📃 Real-time **Activity Log** (last 20 actions)  
-- 🧼 Clean, responsive UI with zero UI frameworks  
+- 🟦 Trello-style Drag-and-Drop between Todo, In Progress, and Done columns
+- 📝 Live activity log for task creation, updates, and deletes
+- 🧼 Clean, UI with zero UI frameworks 
 
 ---
 
