@@ -22,6 +22,14 @@ It powers features like authentication, task management, smart assignment, confl
 
 ---
 
+
+## Environment Variable
+
+# MONGO_URL=your_mongo_uri
+# JWT_SECRET=your_secret
+# NODE_ENV=development
+
+
 ## 🚀 Setup & Run Locally
 
 ### 1. Clone the Repo
@@ -30,3 +38,4 @@ It powers features like authentication, task management, smart assignment, confl
 git clone https://github.com/pratyushranjn/real-time-collaborative-todo-board.git
 
 cd real-time-collaborative-todo-board/backend
+

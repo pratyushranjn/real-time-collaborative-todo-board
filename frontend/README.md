@@ -35,6 +35,12 @@ This is the **React frontend** for the Webalar Full Stack Development assignment
 ---
 
 
+## Environment Variable
+
+# VITE_BACKEND_URL=https://real-time-collabtask.onrender.com/api
+
+# SocketIO=https://real-time-collabtask.onrender.com
+
 
 # Dashboard Layout
 +------------------------------------------------------+
