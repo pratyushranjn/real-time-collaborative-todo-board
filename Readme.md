@@ -2,8 +2,7 @@
 
 An intuitive, **Kanban-style task management** board with real-time collaboration, intelligent task assignment, and conflict resolution — built for the **Webalar Full Stack Internship Assignment**.
 
-🌐 Live Demo: [](#)  
-📽️ Demo Video: [](#)  
+🌐 Live Demo: [CollabTask](https://real-time-collaborative-todo-board.vercel.app/dashboard)   
 📦 GitHub Repo: [real-time-collaborative-todo-board](https://github.com/pratyushranjn/real-time-collaborative-todo-board)
 
 ---
