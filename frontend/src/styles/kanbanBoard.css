@@ -5,9 +5,11 @@
   padding: 1rem;
   overflow-x: auto;
   min-height: calc(100vh - 64px);
-
   align-items: flex-start;
+  -webkit-overflow-scrolling: touch; 
+  scroll-behavior: smooth;
 }
+
 
 .kanban-column {
   background-color: #1e293b;
@@ -40,3 +42,20 @@
   font-size: 0.85rem;
   color: #f8fafc;
 }
+
+
+@media (max-width: 768px) {
+  .kanban-container {
+    flex-direction: row; 
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1rem;
+  }
+
+  .kanban-column {
+    min-width: 280px;
+    width: 80vw;
+    flex-shrink: 0;
+  }
+}
+
