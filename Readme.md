@@ -78,23 +78,13 @@ It includes:
 ---
 
 
-## ⚙️ Setup Instructions
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/pratyushranjn/real-time-collaborative-todo-board.git
-
-cd real-time-collaborative-todo-board
-
-
 
 ## 📷 Screenshots
 
 ### 🧼 Dashboard — Clean View
 The dashboard displays a clean and minimal view in Kanban columns.
 
-![Dashboard](public/dashboard.png)
+![Dashboard](./frontend/public/dashboard.png)
 
 ---
 
@@ -104,7 +94,7 @@ Users can easily create new tasks using a modal form. Newly created tasks appear
 - Smart-assigned user initials
 - Edit and delete options
 
-![Created Task](public/createTask.png)
+![Created Task](./frontend/public/createTask.png)
 
 ---
 
@@ -113,4 +103,16 @@ Tasks can be **dragged and dropped** across the three Kanban columns:
 - Todo → In Progress → Done  
 With real-time synchronization and persistent priority indicators.
 
-![Priority Based Task View](public/prority_based.png)
+![Priority Based Task View](./frontend/public/prority_based.png)
+
+
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/pratyushranjn/real-time-collaborative-todo-board.git
+
+cd real-time-collaborative-todo-board
+
