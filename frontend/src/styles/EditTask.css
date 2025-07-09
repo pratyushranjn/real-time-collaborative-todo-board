@@ -1,0 +1,165 @@
+/* Overlay background */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.25s ease;
+}
+
+/* Modal Box */
+.modal-content {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #f8fafc;
+  padding: 1.8rem;
+  border-radius: 16px;
+  width: 95%;
+  max-width: 420px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.25s ease;
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.modal-header h2 {
+  font-size: 1.4rem;
+  margin: 0;
+  color: #e2e8f0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #f87171;
+}
+
+/* Form Fields */
+.modal-content label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  width: 100%;
+  background-color: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.modal-content textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Buttons */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.save-btn,
+.cancel-btn {
+  padding: 0.55rem 1.2rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.save-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+}
+
+.save-btn:hover {
+  background-color: #2563eb;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  color: #f1f5f9;
+  border: 1px solid #475569;
+}
+
+.cancel-btn:hover {
+  background-color: #1e293b;
+}
+
+/*  Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile Friendly */
+@media (max-width: 480px) {
+  .modal-content {
+    width: 92%;
+    padding: 1.2rem;
+    border-radius: 12px;
+  }
+
+  .modal-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}

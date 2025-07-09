@@ -1,0 +1,296 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
+
+}
+
+
+/* Task Card */
+.task-card {
+  background-color: #0f172a;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: grab;
+  position: relative;
+  box-shadow: 0 0 0 2px #1e293b;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+  box-shadow: 0 0 0 1.5px #3b82f6;
+}
+
+.priority-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+/* Task Content  */
+.card-content h4 {
+  color: #f8fafc;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.card-content p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Footer */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  cursor: pointer;
+}
+
+/* Footer Right: Smart Assign + Avatar  */
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+/*  Priority Badge  */
+.priority-badge {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.priority-badge.high {
+  background-color: #ef4444;
+}
+
+
+/* Distinct color */
+.priority-badge.high {
+  background-color: #dc2626;
+}
+
+.priority-badge.medium {
+  background-color: #d97706; 
+}
+
+.priority-badge.low {
+  background-color: #059669; 
+}
+
+/*  Avatar  */
+.assignee-avatar {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border-radius: 999px; 
+  width: 40px;           
+  height: 40px;         
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Scrollbar */
+.kanban-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.kanban-container::-webkit-scrollbar-thumb {
+  background-color: #334155;
+  border-radius: 4px;
+}
+
+/* Options Menu */
+.task-options {
+  position: relative;
+  cursor: pointer;
+}
+
+.task-options.top-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.more-icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.options-dropdown {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  padding: 0.5rem;
+  z-index: 999;
+}
+
+.options-dropdown p {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  margin: 0;
+  color: #e2e8f0;
+  cursor: pointer;
+}
+
+.options-dropdown p:hover {
+  background-color: #334155;
+  border-radius: 4px;
+}
+
+/* === Smart Assign Icon with Tooltip === */
+.smart-assign-icon {
+  font-size: 1rem;
+  color: #3b82f6;
+  cursor: pointer;
+  position: relative;
+}
+
+.smart-assign-icon:hover {
+  color: #2563eb;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 110px;
+  background-color: #1e293b;
+  color: #f8fafc;
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+  z-index: 999;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.column-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-dot.todo {
+  background-color: #facc15;
+ 
+}
+
+.status-dot.inProgress {
+  background-color: #3b82f6;
+
+}
+
+.status-dot.done {
+  background-color: #10b981;
+
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+.status-dot.todo,
+.status-dot.inProgress {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+
+@media (max-width: 768px) {
+  .kanban-container {
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+
+  .kanban-column {
+    width: 100%;
+    min-width: unset;
+    min-height: unset;
+  }
+
+  .task-card {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .card-content h4 {
+    font-size: 1rem;
+  }
+
+  .card-content p {
+    font-size: 0.85rem;
+  }
+
+  .priority-badge {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+  }
+
+  .assignee-avatar {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+}

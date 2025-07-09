@@ -17,22 +17,22 @@ connectDB();
 
 // Middlewares
 app.use(cors({
-  origin: "*",
+  origin: "http://localhost:5173", 
   credentials: true,
 }));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes
-app.use('/api/user', authRoute);
+app.use('/api/auth', authRoute);
 app.use('/api/tasks', taskRoute)
 app.use('/api/log', logRoute)
 
-
 // Setup Socket.IO
-Socket(server);
+Socket(server, app);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

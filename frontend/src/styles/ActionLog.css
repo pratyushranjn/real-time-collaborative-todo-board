@@ -1,0 +1,30 @@
+.activity-log h2 {
+  color: #f8fafc;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #1e293b;
+  padding-bottom: 0.5rem;
+}
+
+.log-entry {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0.75rem;
+  color: #cbd5e1;
+}
+
+.log-icon {
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+.log-text {
+  margin: 0;
+  font-weight: 500;
+}
+
+.log-time {
+  font-size: 0.8rem;
+  color: #64748b;
+}

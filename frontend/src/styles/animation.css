@@ -1,0 +1,33 @@
+/* Base transition */
+.task-card {
+  animation: fadeInUp 0.4s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: grab;
+  transform-origin: center;
+}
+
+/* On hover */
+.task-card:hover {
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+}
+
+/* On drag */
+.task-card.dragging {
+  transform: rotate(1.5deg) scale(1.02);
+  opacity: 0.85;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+  transition: none;
+}
+
+
+/* Initial appear animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

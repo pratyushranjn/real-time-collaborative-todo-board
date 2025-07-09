@@ -1,20 +1,96 @@
-# **App Name**: Real-Time Collaborative To-Do Board
+# ✅ Smart Assign – Auto Assignment Logic
 
-## Core Features:
+### 🎯 Objective:
+To evenly distribute tasks among users by automatically assigning new or unassigned tasks to the user with the fewest currently active tasks.
 
-- Kanban Board: Kanban board with columns for 'Todo', 'In Progress', and 'Done'.
-- Task Drag and Drop: Drag-and-drop functionality to move tasks between columns.
-- Smart Assign: A 'Smart Assign' button that automatically assigns a task to the user with the fewest active tasks. Tool usage within a single query may be necessary in situations with larger lists.
-- Activity Log Panel: Display of the last 20 actions (add/edit/delete/assign/drag-drop) performed on the board, updated live.
-- Conflict Indicators: Visual indicators when two users edit the same task simultaneously, with options to merge or overwrite changes.
-- Task Prioritization & Filters: Highlight tasks of different priority levels. Provide simple filtering of priority level.
+---
 
-## Style Guidelines:
+## 🔧 How It Works
 
-- Primary color: Slate blue (#778DA9) to evoke calmness and productivity.
-- Background color: Light gray (#F0F0F0) to provide a clean, neutral backdrop.
-- Accent color: Coral (#E29578) for interactive elements and highlights.
-- Body font: 'Inter' sans-serif for a modern, neutral look; Headline font: 'Space Grotesk' for emphasis.
-- Use simple, outlined icons from a set like Phosphor to represent task status and actions.
-- Clean, card-based layout with clear visual separation between tasks and columns.
-- Subtle transition animations when tasks are dragged and dropped between columns.
+### 🔹 Trigger:
+When the “✨ Smart Assign” button is clicked on a task card.
+
+### 🛠️ Backend Execution:
+- The system fetches all users from the database.
+- It then counts how many tasks each user is currently assigned in "Todo" or "In Progress" status using a **MongoDB aggregation query**.
+- This helps identify which user has the least workload.
+
+### 📌 Assignment:
+- The task is assigned to the user with the lowest count of active tasks.
+- The task’s `assignedTo` and `lastModified` fields are updated.
+- The updated task is saved back to the database.
+
+### 🧾 Logging & Notification:
+- A detailed activity log is created:  
+  `"Smart assigned task to [User Name]"`
+- A `taskAssigned` Socket.IO event is emitted to update all connected clients in real-time.
+- On the frontend, a toast message is shown confirming the assignment.
+
+### ✅ Benefits:
+- Ensures fair distribution of workload.
+- Eliminates manual decision-making.
+- Real-time updates keep all users in sync.
+- Seamlessly integrates with activity logs and live notifications.
+
+---
+
+# ⚔️ Conflict Handling – Real-Time Collaborative Safety
+
+### 🎯 Objective:
+Prevent data loss or overwrites when multiple users attempt to edit the same task simultaneously.
+
+---
+
+## 🔄 Scenario:
+Two users open the same task:
+- **User A** edits the title.
+- **User B** changes the priority, but submits after User A.
+
+❗ This can lead to data loss if not handled properly.
+
+---
+
+## 🔧 How It Works
+
+### 🕒 Timestamp Tracking:
+- Each task includes a `lastModified` timestamp.
+- When a user submits an update, their client sends this timestamp along with the changes.
+
+### 🖥️ Backend Comparison:
+- The server compares the incoming timestamp with the current `lastModified` value in the database.
+- If the server's version is newer (i.e., another user has updated it in the meantime), a **conflict is detected**.
+
+### 🚨 Conflict Response:
+- The server responds with:
+  - HTTP `409 Conflict` status.
+  - Both versions:
+    - Client's version (submitted by the user)
+    - Server's latest version (current in DB)
+
+### 👥 User Resolution (Frontend):
+- The user sees both versions side-by-side.
+- They can choose to:
+  - Merge changes manually
+  - Overwrite the server version
+- Upon confirmation, the task is saved with the user’s resolution.
+
+### 📋 Logging & Update:
+- The action is logged with a detailed message like:  
+  `"Conflict resolved by [User] – title and priority updated"`
+- Task is updated, and a real-time update is sent via Socket.IO.
+
+---
+
+## ⚙️ MongoDB Aggregation Pipeline – Smart Assign
+
+Used to **find the user with the fewest active tasks** (`Todo` or `In Progress`).
+
+### 🧪 Query Example
+
+```js
+Task.aggregate([
+  { $match: { status: { $in: ["Todo", "In Progress"] }, assignedTo: { $ne: null } } },
+  { $group: { _id: "$assignedTo", taskCount: { $sum: 1 } } },
+  { $sort: { taskCount: 1 } },
+  { $limit: 1 }
+]);

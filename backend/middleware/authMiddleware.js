@@ -3,14 +3,20 @@ const User = require('../models/User');
 const ExpressError = require('../utils/expressError');
 
 const authenticate = async (req, res, next) => {
-  const token =
-    req.cookies?.token ||
-    req.headers.authorization?.startsWith('Bearer ')
-      ? req.headers.authorization.split(' ')[1]
-      : null;
+  let token;
+
+  // First check cookies
+  if (req.cookies && req.cookies.token) {
+    token = req.cookies.token;
+  }
+
+  // Then check Authorization header
+  else if (req.headers.authorization?.startsWith('Bearer ')) {
+    token = req.headers.authorization.split(' ')[1];
+  }
 
   if (!token) {
-    throw new ExpressError(401, "No token provided");
+    return next(new ExpressError(401, 'No token provided'));
   }
 
   try {
@@ -18,13 +24,13 @@ const authenticate = async (req, res, next) => {
     const user = await User.findById(decoded.id).select('-password');
 
     if (!user) {
-      throw new ExpressError(401, "User not found");
+      throw new ExpressError(401, 'User not found');
     }
 
     req.user = user;
     next();
   } catch (err) {
-    throw new ExpressError(401, "Token is invalid or expired");
+    next(new ExpressError(401, 'Token is invalid or expired'));
   }
 };
 

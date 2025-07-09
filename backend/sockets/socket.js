@@ -3,28 +3,22 @@ const { Server } = require("socket.io");
 // Map to track task editors → { taskId: { userId, socketId } }
 const editingTasks = new Map();
 
-module.exports = function setupSocket(server) {
+module.exports = function setupSocket(server, app) {
   const io = new Server(server, {
     cors: {
-      origin: "*",
-      methods: ["GET", "POST"]
-    }
+      origin: "http://localhost:5173",
+      methods: ["GET", "POST"],
+      credentials: true,
+    },
   });
+
+  app.io = io;
 
   io.on("connection", (socket) => {
     console.log("Socket Connected", socket.id);
 
-    // Broadcast task events 
-    socket.on("taskCreated", (data) => {
-      socket.broadcast.emit("taskCreated", data);
-    });
-
     socket.on("taskUpdated", (data) => {
       socket.broadcast.emit("taskUpdated", data);
-    });
-
-    socket.on("taskDeleted", (data) => {
-      socket.broadcast.emit("taskDeleted", data);
     });
 
     socket.on("taskAssigned", (data) => {
@@ -33,6 +27,10 @@ module.exports = function setupSocket(server) {
 
     socket.on("taskMoved", (data) => {
       socket.broadcast.emit("taskMoved", data);
+    });
+
+    socket.on("logCreated", (data) => {
+      socket.broadcast.emit("logCreated", data);
     });
 
 

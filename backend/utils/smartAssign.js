@@ -28,6 +28,10 @@ const smartAssign = async () => {
     }
   }
 
+  console.log("🎯 Smart assigned to:", minUserId);
+
+
+
   return minUserId || null;
 };
 

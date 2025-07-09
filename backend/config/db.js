@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const mongo_URL = "mongodb://127.0.0.1:27017/real-time-todo"
+// const mongo_URL = "mongodb://127.0.0.1:27017/real-time-todo"
 
-// const mongo_URL = process.env.MONGO_URL
+const mongo_URL = process.env.MONGO_URL
 
 
 const connectDB = async () => {

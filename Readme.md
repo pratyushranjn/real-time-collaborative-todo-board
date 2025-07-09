@@ -1,56 +1,117 @@
-# 📝 Real-Time Collaborative To-Do Board
+# 🚀 Real-Time Collaborative To-Do Board
 
-A full-stack Kanban-style to-do board that supports **real-time collaboration** between users. Built for the Webalar Full Stack Internship Assignment using the MERN stack and WebSockets.
+An intuitive, **Kanban-style task management** board with real-time collaboration, intelligent task assignment, and conflict resolution — built for the **Webalar Full Stack Internship Assignment**.
 
----
-
-## 📌 Features
-
-- ✅ JWT-based User Authentication (Register/Login)
-- ✅ Drag & Drop Kanban Board (Todo, In Progress, Done)
-- ✅ Real-time Sync using Socket.IO
-- ✅ Smart Assign: Auto-assign to least busy user
-- ✅ Conflict Detection & Resolution
-- ✅ Activity Log Panel (last 20 actions)
-- ✅ Mobile Responsive Design
-- ✅ No UI libraries used — Pure React + CSS
+🌐 Live Demo: [](#)  
+📽️ Demo Video: [](#)  
+📦 GitHub Repo: [real-time-collaborative-todo-board](https://github.com/pratyushranjn/real-time-collaborative-todo-board)
 
 ---
 
-## 🧰 Tech Stack Used
+## 🧩 Project Overview
+
+This is a full-stack MERN application that enables **multiple users to collaborate on tasks** in real-time using a Kanban interface — inspired by Trello.  
+It includes:
+
+- 🔐 **Secure login** via JWT + HTTP-only cookies  
+- 🔄 **Live task sync** via Socket.IO (WebSockets)  
+- ✨ **Smart Assign** to auto-distribute tasks  
+- ⚠️ **Conflict Detection** during concurrent edits  
+- 📃 Real-time **Activity Log** (last 20 actions)  
+- 🧼 Clean, responsive UI with zero UI frameworks  
+
+---
+
+## 📌 Core Features
+
+- ✅ JWT-based user auth with cookies  
+- ✅ Drag-and-drop Kanban board (`Todo`, `In Progress`, `Done`)  
+- ✅ Real-time sync across users using Socket.IO  
+- ✅ Smart Assign: AI-like logic to find least busy user  
+- ✅ Conflict resolution: prevents overwriting newer task versions  
+- ✅ Activity Log Panel: shows latest 20 actions with user info  
+- ✅ Edit/Delete functionality with modal popups  
+- ✅ Responsive layout (mobile-friendly)  
+- ✅ No UI libraries — built entirely with **custom React + CSS**
+
+---
+
+## 🧰 Tech Stack
 
 ### 💻 Frontend
-- React
-- React Router
-- Socket.IO Client
+- React + Vite
+- React Router DOM
+- Context API
 - Axios
-- Vanilla CSS 
+- Socket.IO Client
+- Vanilla CSS (no frameworks)
 
 ### 🖥 Backend
-- Node.js
-- Express.js
+- Node.js + Express.js
 - MongoDB + Mongoose
-- JWT + Bcrypt
+- JWT + HTTP-only Cookies
+- Bcrypt.js
 - Socket.IO
-- CORS + Dotenv
+- Dotenv + CORS
 
 ---
 
-## UI Design
+## 🖼️ UI Layout
 
-The interface is custom-built using React and CSS (no UI libraries).  
-It follows a Kanban layout with:
+🔳 **Three Kanban Columns**:
+- **Todo**
+- **In Progress**
+- **Done**
 
-- Three status columns: Todo, In Progress, Done
-- Cards with drag & drop
-- Priority indicators and user initials
-- Right-side real-time Activity Log
+🧾 Each task card includes:
+- Task title & description
+- Priority badge (`High`, `Medium`, `Low`)
+- Assignee initials (if assigned)
+- Options menu: `Edit`, `Delete`
+- ✨ Smart Assign icon (magic wand)
+
+📋 **Right-side panel**:
+- Real-time Activity Log  
+- Shows actions like `Created`, `Updated`, `Assigned`, `Deleted`  
+- Includes username + timestamp
+
+---
 
 
-## 🏗 Setup Instructions
+## ⚙️ Setup Instructions
 
-### 📦 Backend
+### 1. Clone the Repository
 
 ```bash
-cd backend
-npm install
+git clone https://github.com/pratyushranjn/real-time-collaborative-todo-board.git
+
+cd real-time-collaborative-todo-board
+
+
+
+
+## 📷 Screenshots
+
+### 🧼 Dashboard — Clean View
+The dashboard displays a clean and minimal view in kanbun column.
+
+![Empty Dashboard](./frontend/public/dashboard.png)
+
+---
+
+### ✍️ Task Created — with Priority & Assignee
+Users can easily create new tasks using a modal form. Newly created tasks appear instantly for all users and include:
+- Priority badge (`High`, `Medium`, `Low`)
+- Smart-assigned user initials
+- Edit and delete options
+
+![Task Created](./frontend/public/createTask.png)
+
+---
+
+### 🔄 Priority-Based Task Movement
+Tasks can be **dragged and dropped** across the three Kanban columns:
+- Todo → In Progress → Done  
+with real-time synchronization and persistent priority indicators.
+
+![Priority Based Movement](./frontend/public/prority_based.png)

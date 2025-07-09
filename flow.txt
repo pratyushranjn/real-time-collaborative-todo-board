@@ -1,0 +1,41 @@
+[User Clicks “Smart Assign”] → 
+  [PUT /api/tasks/:id/smart-assign] →
+    [Backend Loads Task] →
+    [smartAssign() picks least busy user] →
+    [Task updated with new assigned user] →
+    [Activity log saved] →
+    [Response sent back to client] →
+    [Frontend updates UI]
+
+    [Optionally: socket.io emits "taskAssigned" to other users]
+
+
+
+
+[Frontend]  → POST /api/tasks/smart-assign/:taskId
+     ↓
+[Express Router] → smartAssignTask controller
+     ↓
+[smartAssign()] → calculates least busy user
+     ↓
+Task is updated → Activity is logged
+     ↓
+[Socket.emit?] → (optional) notify other users live
+     ↓
+[Response sent] → Frontend updates UI
+
+
+
+Client Request → Server (Express)
+    ↓
+Authenticate Middleware:
+    ├─ Check token in cookies
+    ├─ Verify token signature & expiry
+    ├─ Find user in DB by ID
+    ├─ If no token/user → 401 Unauthorized
+    └─ Attach user to req.user and call next()
+    ↓
+Route Handler:
+    └─ Perform action with authenticated user info
+    ↓
+Send Response to Client

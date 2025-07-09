@@ -31,18 +31,11 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  boardId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Board',
-    required: true
-  },
   lastModified: {
     type: Date,
     default: Date.now
   }
 }, { timestamps: true });
 
-// title unique per board
-taskSchema.index({ boardId: 1, title: 1 }, { unique: true });
 
 module.exports = mongoose.model('Task', taskSchema);
