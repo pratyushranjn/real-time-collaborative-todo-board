@@ -78,22 +78,20 @@ const logout = (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax'
+    sameSite: isProduction ? 'none': 'lax'
   });
 
   res.status(200).json({ message: 'Logout successful' });
 };
 
 const getUserProfile = async (req, res) => {
-  const user = await User.findById(req.user.id).select('-password');
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
-
-  const tasks = await Task.find({ assignedTo: req.user.id });
+  const user = req.user;
+  
+  const tasks = await Task.find({ assignedTo: user._id });
 
   res.json({ user, tasks });
 };
+
 
 module.exports = {
   registerUser,
