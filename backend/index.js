@@ -24,6 +24,15 @@ app.use(cors({
   credentials: true,
 }));
 
+// Handle preflight requests (OPTIONS)
+app.options('*', cors({
+  origin: [
+    "http://localhost:5173", 
+    "https://real-time-collaborative-todo-board.vercel.app"
+  ],
+  credentials: true,
+}));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -3,39 +3,35 @@ import axios from 'axios'
 import socket from '../services/socket'
 
 const AuthContext = createContext();
+
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setloading] = useState(true);
-  const [authLoading, setAuthLoading] = useState(false); 
+  const [authLoading, setAuthLoading] = useState(false);
 
 
   // Fetch user
-  const fetchUser = async () => {
+  const fetchUser = async (retry = 1) => {
     try {
       const res = await axios.get(`${BASE_URL}/auth/me`, {
-        withCredentials: true, // for sending the cookie
+        withCredentials: true,
       });
-
-      setUser(res.data.user)
-      if (!socket.connected) {
-        socket.connect(); // Connect only after user is authenticated
-      }
-
+      setUser(res.data.user);
+      if (!socket.connected) socket.connect();
     } catch (err) {
-      setUser(null)
-      if (socket.connected) {
-        socket.disconnect();
+      if (retry > 0) {
+        setTimeout(() => fetchUser(retry - 1), 1500); // try again after 1.5s
+      } else {
+        setUser(null);
+        if (socket.connected) socket.disconnect();
       }
     } finally {
       setloading(false);
     }
   };
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   const login = async ({ email, password }) => {
     if (!email || !password) throw new Error('Email and password are required');

@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { CgNotes } from "react-icons/cg";
-import { AiOutlineLogout } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 import { MdOutlineHistory } from "react-icons/md";
 import NewTaskModal from "./NewTask";
 import { useAuth } from "../context/AuthContext";
 import { useBoard } from "../context/BoardContext";
 import ActivityLog from "../components/ActionLog";
+import { RiLogoutCircleRLine } from "react-icons/ri";
 
 import "../styles/Navbar.css";
 
@@ -66,9 +66,9 @@ const Navbar = () => {
             </button>
 
             <button className="logout-button" onClick={handleLogout}>
-              <AiOutlineLogout size={18} style={{ marginRight: "6px" }} />
-              Logout
+              <RiLogoutCircleRLine size={18} style={{ marginRight: "6px" }} />
             </button>
+          
           </div>
 
           {/* Mobile View */}
@@ -77,11 +77,11 @@ const Navbar = () => {
               <IoAddCircleOutline size={20} />
             </button>
             <button className="hamburger" onClick={() => setShowMenu(!showMenu)}>
-              <FiMenu />
+              <FiMenu size={27}/>
             </button>
 
                <button onClick={() => setShowActionLog(true)} className="log-toggle">
-             <MdOutlineHistory size={26} />
+             <MdOutlineHistory size={27} />
             </button>
           </div>
         </div>
@@ -100,8 +100,8 @@ const Navbar = () => {
             </div>
 
             <button className="logout-button" onClick={handleLogout}>
-              <AiOutlineLogout size={18} style={{ marginRight: "6px" }} />
-              Logout
+            <RiLogoutCircleRLine size={18} style={{ marginRight: "6px" }} />
+           
             </button>
           </div>
         )}
