@@ -15,21 +15,19 @@ const server = http.createServer(app);
 
 connectDB();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://real-time-collaborative-todo-board.vercel.app"
+];
+
 // Middlewares
 app.use(cors({
-  origin: [
-    "http://localhost:5173", 
-    "https://real-time-collaborative-todo-board.vercel.app"
-  ],
-  credentials: true,
-}));
-
-// Handle preflight requests (OPTIONS)
-app.options('*', cors({
-  origin: [
-    "http://localhost:5173", 
-    "https://real-time-collaborative-todo-board.vercel.app"
-  ],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
 }));
 

@@ -11,7 +11,7 @@ module.exports = function setupSocket(server, app) {
         "https://real-time-collaborative-todo-board.vercel.app"
       ],
       methods: ["GET", "POST"],
-      credentials: true,
+      credentials: true, // allow cookies & auth headers
     }
   });
 
