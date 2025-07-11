@@ -22,15 +22,20 @@ export const AuthProvider = ({ children }) => {
       if (!socket.connected) socket.connect();
     } catch (err) {
       if (retry > 0) {
-        setTimeout(() => fetchUser(retry - 1), 1500); // try again after 1.5s
+        setTimeout(() => fetchUser(retry - 1), 1500); // retry
       } else {
         setUser(null);
         if (socket.connected) socket.disconnect();
       }
     } finally {
-      setloading(false);
+      setloading(false); 
     }
   };
+
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
 
   const login = async ({ email, password }) => {
